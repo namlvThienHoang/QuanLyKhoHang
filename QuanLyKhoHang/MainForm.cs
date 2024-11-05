@@ -1,25 +1,21 @@
-﻿using QuanLyKhoHang.BLL;
+﻿using AutoMapper;
+using QuanLyKhoHang.BLL;
 using QuanLyKhoHang.DAL;
+using QuanLyKhoHang.DAL.Base;
+using QuanLyKhoHang.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyKhoHang
 {
     public partial class MainForm : Form
     {
-        private readonly Service _productService;
+        private readonly ProductService _productService;
 
-        public MainForm()
+        public MainForm(IMapper mapper)
         {
             InitializeComponent();
-            _productService = new Service();
+            _productService = new ProductService(new GenericRepository<Product>(new QuanLyKhoHangContext()), mapper);
             LoadProducts();
         }
         private void LoadProducts()
@@ -31,7 +27,7 @@ namespace QuanLyKhoHang
         // Thêm sản phẩm mới
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            var product = new Product
+            var product = new ProductDTO
             {
                 ProductName = txtProductName.Text,
                 UnitPrice = decimal.Parse(txtUnitPrice.Text),
@@ -46,7 +42,7 @@ namespace QuanLyKhoHang
         {
             if (dataGridViewProducts.SelectedRows.Count > 0)
             {
-                var product = (Product)dataGridViewProducts.SelectedRows[0].DataBoundItem;
+                var product = (ProductDTO)dataGridViewProducts.SelectedRows[0].DataBoundItem;
                 product.ProductName = txtProductName.Text;
                 product.UnitPrice = decimal.Parse(txtUnitPrice.Text);
                 product.QuantityInStock = int.Parse(txtQuantityInStock.Text);
@@ -60,7 +56,7 @@ namespace QuanLyKhoHang
         {
             if (dataGridViewProducts.SelectedRows.Count > 0)
             {
-                var product = (Product)dataGridViewProducts.SelectedRows[0].DataBoundItem;
+                var product = (ProductDTO)dataGridViewProducts.SelectedRows[0].DataBoundItem;
                 _productService.DeleteProduct(product.ProductID);
                 LoadProducts();
             }

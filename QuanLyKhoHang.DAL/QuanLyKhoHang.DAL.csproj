@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\GenericRepository.cs" />
+    <Compile Include="Base\IRepository.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>QuanLyKhoHangModel.tt</DependentUpon>
     </Compile>
@@ -87,7 +89,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuanLyKhoHangModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Repository.cs" />
     <Compile Include="Supplier.cs">
       <DependentUpon>QuanLyKhoHangModel.tt</DependentUpon>
     </Compile>

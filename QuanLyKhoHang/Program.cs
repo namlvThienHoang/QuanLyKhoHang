@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using QuanLyKhoHang.BLL;
+using System;
 using System.Windows.Forms;
 
 namespace QuanLyKhoHang
@@ -11,9 +13,14 @@ namespace QuanLyKhoHang
         [STAThread]
         static void Main()
         {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            var mapper = mapperConfig.CreateMapper();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(mapper));
         }
     }
 }
