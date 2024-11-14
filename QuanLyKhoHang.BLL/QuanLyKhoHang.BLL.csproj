@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\AuthService.cs" />
     <Compile Include="MappingProfile.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CauHinhHeThong\" />
+    <Folder Include="KiemKeKhoHang\" />
+    <Folder Include="QuanLyNhapKho\" />
+    <Folder Include="QuanLySanPham\" />
+    <Folder Include="QuanLyXuatKho\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

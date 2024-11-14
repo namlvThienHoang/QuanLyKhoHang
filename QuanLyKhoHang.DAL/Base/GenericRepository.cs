@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace QuanLyKhoHang.DAL.Base
 {
@@ -46,6 +48,30 @@ namespace QuanLyKhoHang.DAL.Base
                 _dbSet.Remove(entity);
                 _context.SaveChanges();
             }
+        }
+
+        public T Find(params Expression<Func<T, bool>>[] predicates)
+        {
+            IQueryable<T> query = _dbSet;
+
+            foreach (var predicate in predicates)
+            {
+                query = query.Where(predicate);
+            }
+
+            return query.FirstOrDefault(); 
+        }
+
+        public IEnumerable<T> Filter(params Expression<Func<T, bool>>[] predicates)
+        {
+            IQueryable<T> query = _dbSet;
+
+            foreach (var predicate in predicates)
+            {
+                query = query.Where(predicate);
+            }
+
+            return query.ToList();
         }
     }
 }
